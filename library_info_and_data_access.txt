@@ -1,0 +1,2 @@
+Required libraries:
+- finta (financial technical analysis library in Python
