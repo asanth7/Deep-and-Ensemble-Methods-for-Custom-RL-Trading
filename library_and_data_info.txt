@@ -14,4 +14,4 @@ The Stock-NewsEventsSentiment (SNES) 1.0 dataset can be accessed through the Kag
 !kaggle datasets download -d parsabg/stocknewseventssentiment-snes-10
 !unzip stocknewseventssentiment-snes-10.zip
 
-This dataset includes a few files with market and news time series metadata for S&P 500 companies over a 21 month period (10/2020 to 7/2022) consiting of a sentiment score and the number of articles on products, layoffs, dividends, earnings, mergers and acquisitions, stock rumors, and more.
+This dataset includes a few files with market and news time series metadata for S&P 500 companies over a 21 month period (10/2020 to 7/2022) consisting of a sentiment score and the number of articles on products, layoffs, dividends, earnings, mergers and acquisitions, stock rumors, and more.
