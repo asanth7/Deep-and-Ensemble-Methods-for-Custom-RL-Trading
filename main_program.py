@@ -170,4 +170,5 @@ for episode in range(dqn_agent.num_training_episodes):
 best_dqn_trained = tf.keras.models.load_model("best_deepnn_training.h5")
 
 # Test model with same testing function and optional testing_dqn parameter for slight modification in data structure in model.predict()
-test_models_and_metrics(model=best_dqn_trained, testing_dqn=True)
+# Variable framebound (Allows for testing of different time periods/time steps in the train dataset (or testing dataset)). Default framebound is determined by last training timestep
+test_models_and_metrics(model=best_dqn_trained, testing_dqn=True, custom_framebound=(249, 300))
