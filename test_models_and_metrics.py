@@ -1,16 +1,9 @@
-import pandas as pd
-import numpy as np
-from main_program import train_df, test_df, env2
-from custom_environment import customIndicatorEnv
-from stable_baselines3.common.vec_env import DummyVecEnv
-
-from ensemble_helpers import ensemble_model_action
-
 def test_models_and_metrics(model=None, model_name=None,
                 num_episodes=15, group_test=False,
                 all_models=None, best_sharpe=None,
                 best_calmar = None, skip_desc=False,
-                ensemble_testing = None, testing_dqn=False):
+                ensemble_testing = None, testing_dqn=False, 
+                custom_framebound=None):
 
     if group_test == True:
 
@@ -49,16 +42,21 @@ def test_models_and_metrics(model=None, model_name=None,
     test_env_df = test_df
 
 
-    # Using first 18 days immediately after training set for testing
-    train_env_upper_bound = env2.get_attr("_return_framebound")[0]()[1]
-    if train_env_upper_bound < len(train_df) - window_size//2:
-      frame_bound = (train_env_upper_bound + 1, train_env_upper_bound + window_size//2)
-      test_env_df = train_df
-    elif train_env_upper_bound == len(train_df) - 1:
-      frame_bound = (window_size, 3*window_size//2 - 1)
+    if custom_framebound == None:
+      # Using first 18 days immediately after training set for testing
+      train_env_upper_bound = env2.get_attr("_return_framebound")[0]()[1]
+      if train_env_upper_bound < len(train_df) - window_size//2:
+        frame_bound = (train_env_upper_bound + 1, train_env_upper_bound + window_size//2)
+        test_env_df = train_df
+      elif train_env_upper_bound == len(train_df) - 1:
+        frame_bound = (window_size, 3*window_size//2 - 1)
 
-    # Using last 18 days for testing
-    # frame_bound = (len(test_df) - 18, len(test_df) - 1)
+      # Using last 18 days for testing
+      # frame_bound = (len(test_df) - 18, len(test_df) - 1)
+
+    else:
+      frame_bound = custom_framebound
+      test_env_df = train_df
 
     print(f"Using frame_bound {frame_bound}")
 
